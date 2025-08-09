@@ -24,11 +24,12 @@ jobs: # By default, jobs run in parallel
             run: npm test
     
     deploy:
+      needs: test # this says that deploy should only run after test is done successfully. you can also do for multiple job dependants [test, integration]
       runs-on: ubuntu-latest # every job has its own runner different from the runner of other jobs
       steps:
           - name: Get code
             uses: actions/checkout@v4
-            
+
           - name: Install Node Js
             uses: actions/setup-node@v4
             with:
