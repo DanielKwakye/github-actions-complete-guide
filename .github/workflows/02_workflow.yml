@@ -1,0 +1,41 @@
+name: Test Project
+on: push
+jobs: # By default, jobs run in parallel
+    test:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Get code # WE want to get the code into our ubuntu environment
+            uses: actions/checkout@v4
+
+          # ubuntu already has node js installed. so no need to reinstall it.
+          # else if you application relies on another package which is not pre installed you'll need to install it
+          - name: Install Node Js
+            uses: actions/setup-node@v4
+            with:
+              node-version: 20
+
+          - name: Install dependencies
+            working-directory: ./02 Starting Project. # optional if .github/ is in same directory level as the project
+            run: npm ci # ci meaning use same packages in the packages-lock.json. However you could simply do `npm install`
+          
+          
+          - name: Run our Tests on the runner
+            working-directory: ./02 Starting Project
+            run: npm test
+    
+    deploy:
+      runs-on: ubuntu-latest # every job has its own runner different from the runner of other jobs
+      steps:
+          - name: Get code
+            uses: actions/checkout@v4
+
+          - name: Install dependencies
+            working-directory: ./02 Starting Project
+            run: npm install
+
+          - name: Build project
+            run: npm run build
+
+          - name: Deploy
+            run: echo "Deploying..."
+
