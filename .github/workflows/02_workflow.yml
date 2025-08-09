@@ -28,6 +28,11 @@ jobs: # By default, jobs run in parallel
       steps:
           - name: Get code
             uses: actions/checkout@v4
+            
+          - name: Install Node Js
+            uses: actions/setup-node@v4
+            with:
+              node-version: 20
 
           - name: Install dependencies
             working-directory: ./02 Starting Project
