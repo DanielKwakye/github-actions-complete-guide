@@ -15,7 +15,7 @@ jobs: # By default, jobs run in parallel
               node-version: 20
 
           - name: Install dependencies
-            working-directory: ./02 Starting Project. # optional if .github/ is in same directory level as the project
+            working-directory: ./02 Starting Project # optional if .github/ is in same directory level as the project
             run: npm ci # ci meaning use same packages in the packages-lock.json. However you could simply do `npm install`
           
           
@@ -30,12 +30,13 @@ jobs: # By default, jobs run in parallel
             uses: actions/checkout@v4
 
           - name: Install dependencies
-            working-directory: ./02 Starting Project
             run: npm install
 
           - name: Build project
+            working-directory: ./02 Starting Project
             run: npm run build
 
           - name: Deploy
+            working-directory: ./02 Starting Project
             run: echo "Deploying..."
 
