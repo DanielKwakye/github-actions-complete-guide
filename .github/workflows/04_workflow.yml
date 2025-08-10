@@ -1,10 +1,11 @@
-name: Events Demo 1
+name: "04_workflow"
 on: 
     pull_request:
         types: [opened, edited] #opened # so activity types determines which pull request type should trigger a workflow
     workflow_dispatch:
     push:
-        branches: main
+        branches: 
+            - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
