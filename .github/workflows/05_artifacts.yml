@@ -15,7 +15,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.npm # cach npm dependencies
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} # hasfile package.lock.json helps the cache system know if dependencies have changed
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }} # hasfile package-lock.json helps the cache system know if dependencies have changed
 
       - name: Install dependencies
         working-directory: ./02 Starting Project
