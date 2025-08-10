@@ -9,6 +9,14 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+
+      # Cache dependencies
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm # cach npm dependencies
+          key: deps-node-modules-${{ hashFiles('**/package.lock.json') }} # hasfile package.lock.json helps the cache system know if dependencies have changed
+
       - name: Install dependencies
         working-directory: ./02 Starting Project
         run: npm ci
@@ -24,6 +32,14 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+
+      # Cache dependencies
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm # cach npm dependencies
+          key: deps-node-modules-${{ hashFiles('**/package.lock.json') }} # hasfile package.lock.json helps the cache system know if dependencies have changed
+
       - name: Install dependencies
         working-directory: ./02 Starting Project
         run: npm ci
