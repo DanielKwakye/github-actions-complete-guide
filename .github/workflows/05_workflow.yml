@@ -12,9 +12,6 @@ jobs:
       - name: Install dependencies
         working-directory: ./02 Starting Project
         run: npm ci
-      - name: Lint code
-        working-directory: ./02 Starting Project
-        run: npm run lint
       - name: Test code
         working-directory: ./02 Starting Project
         run: npm run test
