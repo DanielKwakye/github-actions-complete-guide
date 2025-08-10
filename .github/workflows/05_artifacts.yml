@@ -1,0 +1,59 @@
+name: "05 Artifacts and Outputs"
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        working-directory: ./02 Starting Project
+        run: npm ci
+      - name: Test code
+        working-directory: ./02 Starting Project
+        run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs: 
+      output-dist-files: ${{ steps.expose-artifact-name.outputs.files-name }} #output-dist-files is up to you. that's the name which will be exposed to other jobs
+      # So this is pointing to the step called `expose-artifact-name`, and reading the returned output name `files-name`
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        working-directory: ./02 Starting Project
+        run: npm ci
+      - name: Build website
+        working-directory: ./02 Starting Project
+        run: npm run build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4  
+        with: 
+            name: dist-files # creates a new dist file folder and copy files and folders in the paths specified below
+            path: ./02 Starting Project/dist/
+            # path: |
+            #     ./02 Starting Project/dist/
+            #     ./02 Starting Project/package.json
+      - name: Expouts outputs # outputs are simple values that can be exposed to other jobs
+        id: expose-artifact-name 
+        run: echo 'files-name=[some-variable-here]' >> $GITHUB_OUTPUT
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v5
+        with:
+            name: dist-files # grab the right artifacts
+      
+      - name: Output dist files name
+        run:  echo "${{ needs.build.outputs.output-dist-files }}" # pointing to that outpu published by the build job
+
+      - name: Deploy
+        run: echo "Deploying..."
+      
