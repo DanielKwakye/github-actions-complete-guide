@@ -1,5 +1,5 @@
 name: Test Project
-on: push
+on: [push, workflow_dispatch] # this means we can trigger this workflow with push and manually on github dashboard
 jobs: # By default, jobs run in parallel
     test:
         runs-on: ubuntu-latest
