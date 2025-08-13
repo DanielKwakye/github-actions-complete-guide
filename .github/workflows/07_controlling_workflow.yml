@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Cache dependencies
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
@@ -28,10 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Cache dependencies
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
@@ -45,7 +45,7 @@ jobs:
         run: npm run test
 
       - name: Upload test report
-        uses: actions/upload-artifact@v3 # save the files somewhere
+        uses: actions/upload-artifact@v4 # save the files somewhere
         with:
           name: test-report
           path: test.json
@@ -55,10 +55,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Cache dependencies
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
@@ -73,7 +73,7 @@ jobs:
         run: npm run build
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist-files
           path: dist
@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get build artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist-files
 
