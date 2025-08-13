@@ -41,10 +41,15 @@ jobs:
         run: npm ci
 
       - name: Test code
+        id: run-tests
         working-directory: ./04 Starting Project
         run: npm run test
 
       - name: Upload test report
+        # if here means that this step should only run if the condition within is evaluated to true
+        # in this case the condition is if the outcome of a previouse step is a failure 
+        if: failure() && steps.run-tests.outcome == 'failure' 
+        # failure() - returns true when ANY previous step of job failed. and says this step should still execute
         uses: actions/upload-artifact@v4 # save the files somewhere
         with:
           name: test-report
