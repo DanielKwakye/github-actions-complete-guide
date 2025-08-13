@@ -1,8 +1,9 @@
 name: "05 Artifacts and Outputs"
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch: #manual trigger
+  # push:
+  #   branches:
+  #     - staging
 jobs:
   test:
     runs-on: ubuntu-latest
