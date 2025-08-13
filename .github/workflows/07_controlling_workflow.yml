@@ -76,7 +76,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
-          path: dist
+          path: ./04 Starting Project/dist
 
   deploy:
     needs: build
