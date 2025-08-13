@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v4 # save the files somewhere
         with:
           name: test-report
-          path: test.json
+          path: ./04 Starting Project/test.json
 
   build:
     needs: test
