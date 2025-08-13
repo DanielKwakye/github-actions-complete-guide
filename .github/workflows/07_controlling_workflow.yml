@@ -99,6 +99,8 @@ jobs:
         run: echo "Deploying..."
 
   report:
+    # to make sure this report job is executed after others jobs are executed
+    needs: [lint, deploy]
     # meaning this job will run ONLY if any of the other jobs failed
     if: failure() 
     runs-on: ubuntu-latest
