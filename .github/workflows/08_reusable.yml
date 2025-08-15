@@ -1,9 +1,24 @@
+# this this workflow as a function that will be called by other workflow
+# so this function can accept inputs as parameters. eg. the value of the build files (artifacts)
 name: "08 Reusable workflow"
-on: workflow_call # this allows this workflow to be called by other workflows
+on: 
+    # this allows this workflow to be called by other workflows
+    workflow_call:
+        # input reseverd key word
+        inputs: 
+            artifact-name: # up to you
+                type: string # it can be number | boolean | string
+                description: The name of the deployable artifact files
+                required: false
+                default: dist
+                
 jobs: 
     deploy:
         runs-on: ubuntu-latest
         steps: 
+            - name: Get Code
+              run: echo ${{ inputs.artifact-name }}
+              
             - name: Ouptut information
               run: echo "Deploying & uploading"
               

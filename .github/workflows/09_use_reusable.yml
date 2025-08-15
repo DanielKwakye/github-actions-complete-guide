@@ -12,3 +12,5 @@ jobs:
     deploy:
         needs: build
         uses: ./.github/workflows/08_reusable.yml
+        with:
+            artifact-name: "Daniel K"
