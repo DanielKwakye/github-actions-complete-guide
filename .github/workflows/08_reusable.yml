@@ -11,16 +11,24 @@ on:
                 description: The name of the deployable artifact files
                 required: false
                 default: dist
-        secrets:
+
+        secrets: # secretes are like inputs but treated with extra security
             deployment-username:
                 required: true
                 description: ssh username
             deployment-password:
                 required: true
                 description: ssh password
+
+        outputs:
+            workflow-deployment-result: # your own key here. #workflow-deployment-result is up to you. that's the name which will be exposed to other workflows as returned values
+                description: The result of the deployment operation
+                value: ${{ jobs.deploy.outputs.job-result }}
                 
 jobs: 
     deploy:
+        outputs:
+            job-result: ${{ steps.exposed-deployment-result.outputs.dep-result }} 
         runs-on: ubuntu-latest
         steps: 
             - name: Get Code
@@ -31,4 +39,8 @@ jobs:
 
             - name: Ouptut information
               run: echo "Deploying & uploading"
+            
+            - name: Set result output
+              id: exposed-deployment-result
+              run: echo "dep-result=SUCCESS" >> $GITHUB_OUTPUT # values that can be exposed to the caller of this file throught the outputs
               

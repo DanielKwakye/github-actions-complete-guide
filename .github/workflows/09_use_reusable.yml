@@ -17,3 +17,10 @@ jobs:
         secrets:
             deployment-username: "daniel_username"
             deployment-password: "some password" # this could come from github scretes
+
+    print-deploy-result:
+        needs: deploy
+        runs-on: ubunut-latest
+        steps:
+            - name: Print deploy output
+              run: echo " ${{ needs.deploy.outputs.workflow-deployment-result }} "
