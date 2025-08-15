@@ -1,0 +1,14 @@
+name: "09 Use Reusable"
+on: 
+    push:
+        branches:
+            - main
+jobs: 
+    build:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Output build info
+              run: echo "building project"
+    deploy:
+        needs: build
+        uses: ./github/workflows/08_reusable.yml

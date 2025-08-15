@@ -1,0 +1,9 @@
+name: "08 Reusable workflow"
+on: workflow_call # this allows this workflow to be called by other workflows
+jobs: 
+    build:
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Ouptut information
+              run: echo "Deploying & uploading"
+              
