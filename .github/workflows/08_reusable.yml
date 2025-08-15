@@ -11,6 +11,13 @@ on:
                 description: The name of the deployable artifact files
                 required: false
                 default: dist
+        secrets:
+            deployment-username:
+                required: true
+                description: ssh username
+            deploytment-password:
+                required: true
+                description: ssh password
                 
 jobs: 
     deploy:
@@ -18,7 +25,10 @@ jobs:
         steps: 
             - name: Get Code
               run: echo ${{ inputs.artifact-name }}
-              
+
+            - name: set up ssh
+              run: echo "${{ secrets.deployment-username }} and ${{ secrets.deploytment-password}} "
+
             - name: Ouptut information
               run: echo "Deploying & uploading"
               

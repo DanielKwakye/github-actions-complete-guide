@@ -14,3 +14,6 @@ jobs:
         uses: ./.github/workflows/08_reusable.yml
         with:
             artifact-name: "Daniel K"
+        secrets:
+            deployment-username: "daniel_username"
+            deployment-password: "some password" # this could come from github scretes
