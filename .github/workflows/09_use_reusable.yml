@@ -11,4 +11,4 @@ jobs:
               run: echo "building project"
     deploy:
         needs: build
-        uses: ./github/workflows/08_reusable.yml
+        uses: ./.github/workflows/08_reusable.yml
