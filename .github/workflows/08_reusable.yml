@@ -15,7 +15,7 @@ on:
             deployment-username:
                 required: true
                 description: ssh username
-            deploytment-password:
+            deployment-password:
                 required: true
                 description: ssh password
                 
