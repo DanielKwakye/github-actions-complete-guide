@@ -20,7 +20,7 @@ jobs:
 
     print-deploy-result:
         needs: deploy
-        runs-on: ubunut-latest
+        runs-on: ubuntu-latest
         steps:
-            - name: Print deploy output
+            - name: Print deployment output
               run: echo " ${{ needs.deploy.outputs.workflow-deployment-result }} "
