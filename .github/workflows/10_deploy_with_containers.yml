@@ -11,6 +11,19 @@ jobs:
   test:
     environment: testing
     runs-on: ubuntu-latest
+
+    # This means your job will run in this container with node environment already setup as base image for you
+    # The steps in this job will NOW run in this container automatically
+    # all the github actions library eg. actions/checkout@v3 will still run fine
+    container: 
+       image: node:16
+
+       # env variables here are variable needed by the image NOT needed by the steps (!important)
+       # you usually don't need this env here unless the docker image requires it from the documentation
+       env: 
+         MONGODB_CONNECTION_PROTOCOL: mongodb+srv
+
+
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb+srv
       MONGODB_CLUSTER_ADDRESS: cluster0.z5elz.mongodb.net

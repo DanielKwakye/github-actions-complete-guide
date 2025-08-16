@@ -33,6 +33,7 @@ jobs:
       - name: Run server
         working-directory: ./02 Starting Project
         run: npm start & npx wait-on http://127.0.0.1:$PORT # Referencing the port passed as environmental varialble
+        # whenever you want to use env variable in a run command, you can simply do $VARIABLE 
 
       - name: Run tests
         working-directory: ./02 Starting Project
@@ -41,13 +42,15 @@ jobs:
       - name: Output information
         working-directory: ./02 Starting Project
         run: |
-            echo "MONGODB_DB_USERNAME= ${{ env.MONGODB_DB_USERNAME }}"
+            echo "MONGODB_DB_USERNAME= ${{ env.MONGODB_DB_USERNAME }}" 
+#  This is another way of accessing the env variable
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Output information
-        run: |        
-          echo "available: ${{ env.MONGODB_DB_NAME }}"
+        run: |                
+          echo "available: ${{ env.MONGODB_DB_NAME }}" 
+# refers to the env at the workflow level since no env is setup at the job or step level
         #   echo "unavailale: ${{ env.MONGODB_DB_USERNAME  }}"
