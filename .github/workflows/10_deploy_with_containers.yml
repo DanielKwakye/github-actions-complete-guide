@@ -20,8 +20,8 @@ jobs:
 
        # env variables here are variable needed by the image NOT needed by the steps (!important)
        # you usually don't need this env here unless the docker image requires it from the documentation
-       env: 
-         MONGODB_CONNECTION_PROTOCOL: mongodb+srv
+      #  env: 
+      #    MONGODB_CONNECTION_PROTOCOL: mongodb+srv
 
 
     env:
