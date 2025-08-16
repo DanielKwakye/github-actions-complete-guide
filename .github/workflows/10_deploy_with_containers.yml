@@ -1,4 +1,4 @@
-name: Deployment (Container)
+name: "10 Deployment (Container)"
 on:
   push:
     branches:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb+srv
-      MONGODB_CLUSTER_ADDRESS: cluster0.ntrwp.mongodb.net
+      MONGODB_CLUSTER_ADDRESS: cluster0.z5elz.mongodb.net
       MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
       MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
       PORT: 8080
@@ -25,15 +25,23 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ env.CACHE_KEY }}-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install dependencies
+        working-directory: ./05 Starting Project
         run: npm ci
+
       - name: Run server
+        working-directory: ./05 Starting Project
         run: npm start & npx wait-on http://127.0.0.1:$PORT # requires MongoDB Atlas to accept requests from anywhere!
+      
       - name: Run tests
+        working-directory: ./05 Starting Project
         run: npm test
+
       - name: Output information
         run: |
           echo "MONGODB_USERNAME: $MONGODB_USERNAME"
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
