@@ -1,9 +1,9 @@
 name: "10 Deployment (Container)"
-on:
-  push:
-    branches:
-      - main
-      - dev
+on: workflow_dispatch
+  # push:
+  #   branches:
+  #     - main
+  #     - dev
 env:
   CACHE_KEY: node-deps
   MONGODB_DB_NAME: gha-demo
@@ -17,19 +17,35 @@ jobs:
     # all the github actions library eg. actions/checkout@v3 will still run fine
     container: 
        image: node:16
-
        # env variables here are variable needed by the image NOT needed by the steps (!important)
        # you usually don't need this env here unless the docker image requires it from the documentation
       #  env: 
       #    MONGODB_CONNECTION_PROTOCOL: mongodb+srv
 
-
-    env:
+    # this is the env exposed to the main container
+    env: 
       MONGODB_CONNECTION_PROTOCOL: mongodb+srv
-      MONGODB_CLUSTER_ADDRESS: cluster0.z5elz.mongodb.net
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      # MONGODB_CLUSTER_ADDRESS: cluster0.z5elz.mongodb.net
+      # MONGODB_CLUSTER_ADDRESS: mongodb # you can use the service name here directly if your job is also running in a container
+      MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017 # if you're NOT running this job in a container, then connect to the mongo with the exposed port
+      # MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+      # MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      MONGODB_USERNAME: root # so this will be used to connect to the mongo db service container
+      MONGODB_PASSWORD: example # same as this (to connect to mongodb service container)
       PORT: 8080
+
+      # services belong to one job. if you need a service in another job you need to set up different services
+    services:
+      # service name is up to you
+        mongodb:
+           image: mongo # the image key is required
+           ports: # this is only required if the job is not running in a container
+            - 27017:27017 # exposing port 27017 to the machine. As you know from docker class, this is only required if the job is not running in a container
+           env: # this mongo image requires an env key
+              MONGO_INITDB_ROOT_USERNAME: root
+              MONGO_INITDB_ROOT_PASSWORD: example
+        # redis:
+
     steps:
       - name: Get Code
         uses: actions/checkout@v3
