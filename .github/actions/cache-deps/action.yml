@@ -5,6 +5,12 @@ inputs:
       description: "Whether to cache dependencies or not" # not up to you
       required: true # true or false
       default: true # this is used if user does not specify a different value
+
+outpus:
+   used-cache: #up to you
+      description: "Whether cache was used"
+      value: ${{ steps.install.outputs.cache }}
+
 runs:
   using: 'composite' # this compulsory. avoid typos. indicates that the file is a composite action file
   steps: 
@@ -16,7 +22,12 @@ runs:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
+      id: install
       working-directory: ./06 Starting Project
       if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
-      run: npm ci
+      run: |
+        npm ci
+        echo "cache=${{inputs.caching}}" >> $GITHUB_OUTPUT 
+# just for demo purposes, we're setting the output the input value that was passed
+
       shell: bash # here you must add which shell to execute the "run" command 
