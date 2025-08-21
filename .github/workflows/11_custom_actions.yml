@@ -9,16 +9,10 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v4
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
-        working-directory: ./06 Starting Project
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: Load and Cache Dependencies - Custom Action
+        # path is relatative to the root of the project
+        uses: ./.github/actions/cached-deps # github action will automatically look for action.yml file in this folder
+       
       - name: Lint code
         working-directory: ./06 Starting Project
         run: npm run lint

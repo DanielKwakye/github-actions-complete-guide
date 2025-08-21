@@ -1,0 +1,16 @@
+name: 'Get & Cache Dependencies'
+description: 'Ge the dependencies (via npm) and cache them'
+runs:
+  using: 'composite' # this compulsory. avoid typos. indicates that the file is a composite action file
+  steps: 
+    - name: Cache dependencies
+      id: cache
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+    - name: Install dependencies
+      working-directory: ./06 Starting Project
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm ci
+      shell: bash # here you must add which shell to execute the "run" command 
