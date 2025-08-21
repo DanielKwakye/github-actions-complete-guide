@@ -9,3 +9,5 @@ runs:
 # run npm init -y in the dep-s3-js action folder to include package.json file
 # next, install npm install @actions/core @actions/github @actions/exec # this is from the actions/toolkit
 # https://github.com/actions/toolkit
+
+# you need to include the node_modules folder. if ignored github actions will not download node_modules for you
