@@ -76,5 +76,7 @@ jobs:
   information:
     runs-on: ubuntu-latest
     steps:
+      - name: Get code # make the project available in this job before trying to use the custom action in there
+        uses: actions/checkout@v4
       - name: Run custom js action
         uses: ./.github/actions/deploy-s3-javascript
