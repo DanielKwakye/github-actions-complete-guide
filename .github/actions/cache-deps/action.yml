@@ -6,7 +6,7 @@ inputs:
       required: true # true or false
       default: true # this is used if user does not specify a different value
 
-outpus:
+outputs:
    used-cache: #up to you
       description: "Whether cache was used"
       value: ${{ steps.install.outputs.cache }}
