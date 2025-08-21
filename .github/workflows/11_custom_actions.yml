@@ -12,6 +12,7 @@ jobs:
       - name: Load and Cache Dependencies - Custom Action
         # path is relatative to the root of the project
         uses: ./.github/actions/cache-deps # github action will automatically look for action.yml file in this folder
+        # (if action is in another repository) path for a repository custom action [account name]/[repository name]/.github/[actions folder name (actions)]/path-to-action-file
        
       - name: Lint code
         working-directory: ./06 Starting Project
@@ -21,16 +22,8 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v4
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
-        working-directory: ./06 Starting Project
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: Load and Cache Dependencies - Custom Action
+        uses: ./.github/actions/cache-deps
       - name: Test code
         working-directory: ./06 Starting Project
         id: run-tests
@@ -47,16 +40,8 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v4
-      - name: Cache dependencies
-        id: cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies
-        working-directory: ./06 Starting Project
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: Load and Cache Dependencies - Custom Action
+        uses: ./.github/actions/cache-deps
       - name: Build website
         working-directory: ./06 Starting Project
         run: npm run build
