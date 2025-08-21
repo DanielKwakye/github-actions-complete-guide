@@ -1,0 +1,11 @@
+name: 'Deploy to aws s3'
+description: 'Deploy a static website via AWS s3'
+runs:
+  using: 'node16'
+  # pre: setup.js # can point to a js file (eg. setup.js) that should be executed before the main.js
+  main: 'main.js' # file name is up to you
+  # post: cleanup.js # can point to a js file (eg. cleanup.js) that should be executed after the main.js
+
+# run npm init -y in the dep-s3-js action folder to include package.json file
+# next, install npm install @actions/core @actions/github @actions/exec # this is from the actions/toolkit
+# https://github.com/actions/toolkit
