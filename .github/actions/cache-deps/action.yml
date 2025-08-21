@@ -1,9 +1,15 @@
 name: 'Get & Cache Dependencies'
 description: 'Ge the dependencies (via npm) and cache them'
+inputs:
+   caching: #input name here is up to you
+      description: "Whether to cache dependencies or not" # not up to you
+      required: true # true or false
+      default: true # this is used if user does not specify a different value
 runs:
   using: 'composite' # this compulsory. avoid typos. indicates that the file is a composite action file
   steps: 
     - name: Cache dependencies
+      if: inputs.caching == 'true' # you can remove the ${{}} for if conditions as usual
       id: cache
       uses: actions/cache@v4
       with:
@@ -11,6 +17,6 @@ runs:
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
     - name: Install dependencies
       working-directory: ./06 Starting Project
-      if: steps.cache.outputs.cache-hit != 'true'
+      if: steps.cache.outputs.cache-hit != 'true' || inputs.caching != 'true'
       run: npm ci
       shell: bash # here you must add which shell to execute the "run" command 

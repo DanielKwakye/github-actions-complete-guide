@@ -13,7 +13,9 @@ jobs:
         # path is relatative to the root of the project
         uses: ./.github/actions/cache-deps # github action will automatically look for action.yml file in this folder
         # (if action is in another repository) path for a repository custom action [account name]/[repository name]/.github/[actions folder name (actions)]/path-to-action-file
-       
+        with:
+          caching: 'false'
+
       - name: Lint code
         working-directory: ./06 Starting Project
         run: npm run lint
