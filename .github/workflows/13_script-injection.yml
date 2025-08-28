@@ -1,0 +1,28 @@
+name: Label Issues (Script Injection Example)
+on:
+  issues:
+    types:
+      - opened
+permissions: # you can set permissions here which affect all jobs
+  issues: read
+jobs:
+  assign-label:
+      
+    # you can set permissions here which affect this specific job
+    permissions:  
+      issues: write
+      
+    runs-on: ubuntu-latest
+    steps:
+      - name: Assign label
+        env:
+          TITLE: ${{ github.event.issue.title }} # If you’re using user generated values, it's recommended that you first store them in an environmental variable before using them in the shell command
+        run: |
+          issue_title="${{ env.TITLE }}"
+          if [[ "$issue_title" == *"bug"* ]]; then
+          echo "Issue is about a bug!"
+          else
+          echo "Issue is not about a bug"
+          fi
+
+ # issue_title="${{ github.event.issue.title }}" // YOU SHOULDN'T DO THIS. don't put user inputs or values directly in the shell

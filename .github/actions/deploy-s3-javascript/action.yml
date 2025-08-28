@@ -1,5 +1,20 @@
 name: 'Deploy to aws s3'
 description: 'Deploy a static website via AWS s3'
+inputs:
+  bucket: # input name here is up to you
+    description: 'The s3 bucket name'
+    required: true
+  region: 
+    description: 'The region of the s3 bucket'
+    required: false
+    default: 'us-east-1'
+  dist-folder:
+    description: 'The folder containing the deployable files'
+    required: true
+
+outputs:
+  website-url:
+    description: 'The url of the website'
 runs:
   using: 'node16'
   # pre: setup.js # can point to a js file (eg. setup.js) that should be executed before the main.js
